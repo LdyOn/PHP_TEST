@@ -1,0 +1,10 @@
+#hot_img img{
+    width: 45%;
+    height: 150px;
+}
+#hot_img li{
+    display: inline;
+
+    margin-left: 20px;
+    /*text-align: right;*/
+}
