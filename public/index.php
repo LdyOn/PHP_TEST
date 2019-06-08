@@ -50,6 +50,8 @@ var_dump($_GET['fjewf']);
 // header('location:'.$_GET['fjewf']);
 echo "'bane'";
 
+$redis = new \Redis;
+
 
 
 
