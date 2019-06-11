@@ -26,6 +26,11 @@ class A
     {
         $this->city=$value;
     }
+
+    public static function hello($value='')
+    {
+        
+    }
 }
 
 
@@ -43,14 +48,9 @@ $a->macro('speak',function($talk){
     echo $talk;
 });
 
-$a->speak('what a nice girl!');
-echo '🍁';
-
-var_dump($_GET['fjewf']);
+// $a->speak('what a nice girl!');
 // header('location:'.$_GET['fjewf']);
-echo "'bane'";
 
-$redis = new \Redis;
 
 
 
