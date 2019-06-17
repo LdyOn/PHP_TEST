@@ -87,9 +87,13 @@ class Solution {
     }
 }
 
-$so = new Solution;
+$arr['a'] = [];
+$arr['a']['b'] = [];
+$arr['a']['b']['c'] = [];
+$arr['a']['b']['c']['d'] = ['heelojwjwoqfwihfiwef'];
+$arr['a']['b']['c']['d']['e']['ij'] = ['heelojwjwoqfwihfiwef'];
+$ksjsk= var_export($arr,true);
 
-var_dump($so->isInterleave('aa','ab','aaba'));
 
 
 
