@@ -1,9 +1,10 @@
 <?php
-namespace Lib\ObjectDesign;
 
 /**************************************************
  * 单例模式，所有需要用到类Sington的地方都调用getInstance方法获取
  ****************************************************/
+
+namespace Lib\ObjectDesign;
 
 class Sington 
 {
