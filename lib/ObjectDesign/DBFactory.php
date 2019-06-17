@@ -3,6 +3,8 @@
 /***********************************
  * 定义一个工厂类，获取数据库连接
  ***********************************/
+namespace Lib\ObjectDesign;
+
 use Lib\Database\Mysql\MysqlConnection;
 use Lib\Database\Oracle\OracleConnection;
 use Lib\Database\Sqllite\SqlliteConnection;
