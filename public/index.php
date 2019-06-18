@@ -1,9 +1,6 @@
 <?php
 
-include "../Lib/Macroable.php";
-include "../Lib/ObjectDesign/Sington.php";
 
-use Lib\Macroable;
 /**
  * 
  */
