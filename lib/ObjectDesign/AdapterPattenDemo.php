@@ -15,19 +15,19 @@ class AdapterPattenDemo
 		
 	}
 
-	public function playMedia($file)
+	public function playMedia($type,$file)
 	{
 		$player = new Player;
-		$player->play($file);
+		$player->play($type,$file);
 	}
 
-	
+		
 
 }
 
 //原先的一个播放器接口，可以播放MP3文件，现在通过适配模式扩充该接口
 interface MediaPlayer{
-	public function play($file);
+	public function play($type,$file);
 }
 
 //高级播放器接口，可以播放MP4和avi文件
@@ -44,23 +44,20 @@ interface AdvancedMeidaPlayer{
 class  Player implements MediaPlayer
 {
 	
-	public function play($file)
+	public function play($type,$file)
 	{
-		$type = $this->getFileType($file);
 		if('mp3'==$type){
-
+			print('播放MP3');
 		}elseif('mp4'==$type || 'avi'==$type){
-			$adpter = new 
+			$adpter = new MediaAdapter;
+			$adpter->play($file);
 		}else{
 			throw new Exception("Wrong file type", 1);
 			
 		}
 	}
 
-	public function getFileType($file)
-	{
-		# code...
-	}
+	
 }
 
 /**
@@ -97,15 +94,16 @@ class AviPlayer implements AdvancedMeidaPlayer
 	public function playMp4($file){
 
 	}
+
 	public function playAvi($file){
 
 	}
 }
 
 /**
- * 适配器类
+ * 实现了播放器接口的适配器类
  */
-class MediaAdapter 
+class MediaAdapter implements MediaPlayer
 {
 	protected $advanced_media_play;
 
