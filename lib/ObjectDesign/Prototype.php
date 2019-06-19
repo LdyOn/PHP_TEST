@@ -13,9 +13,9 @@ namespace Lib\ObjectDesign;
 */
 class Prototype 
 {
-	public $conenction;
+	protected $conenction;
 
-	public $object;
+	protected $object;
 	
 	function __construct()
 	{
