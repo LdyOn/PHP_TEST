@@ -16,6 +16,82 @@ class BridgeDemo
 	
 	function __construct()
 	{
-		
+
 	}
 }
+
+
+//画图api
+interface  DrawApi{
+	public function drawCircle($radius,$x,$y);
+	
+}
+
+/**
+ * 
+ */
+class RedCircle implements DrawApi
+{
+	
+	function __construct()
+	{
+		
+	}
+
+	public function drawCircle($radius,$x,$y){
+		print("this is a red circle");
+	}
+}
+
+
+class GreenCircle implements DrawApi
+{
+	
+	function __construct()
+	{
+		
+	}
+
+	public function drawCircle($radius,$x,$y){
+		print("this is a green circle");
+	}
+}
+
+ /**
+ * 
+ */
+abstract class Shap 
+{
+	protected $draw_api;
+
+	function __construct(DrawApi $draw_api)
+	{
+		$this->draw_api = $draw_api;
+	}
+
+	public abstract function draw();
+}
+
+
+/**
+ * 
+ */
+class Circle extends Shap
+{
+	private $x,$y,$radius;
+
+	function __construct($x,$y,$radius,$draw_api)
+	{
+		parent::__construct($draw_api);
+		$this->x = $x;
+		$this->y = $y;
+		$this->radius = $radius;
+
+	}
+
+	public function draw(){
+		$this->draw_api->drawCircle($this->radius,$this->x,$this->y);
+	}
+}
+
+
