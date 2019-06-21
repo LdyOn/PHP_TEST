@@ -1,6 +1,9 @@
 <?php
 
+require_once '../lib/autoloader.php';
 
+use Lib\Macroable;
+use Lib\ObjectDesign\Sington;
 /**
  * 
  */
@@ -8,12 +11,13 @@ class A
 {
     use Macroable;
 
-    protected $city='北京';
+    protected $city = '北京';
     
     function __construct()
     {
         
     }
+    
     public function sayHello($value='')
     {
         echo 'hello '.$this->city;
@@ -85,8 +89,8 @@ class Solution {
     }
 }
 
-$s = Sington::getInstance();
-$s->uName();
+// $s = Sington::getInstance();
+// $s->uName();
 
 
 
