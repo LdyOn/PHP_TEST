@@ -89,7 +89,7 @@ class Solution {
     }
 }
 
-$demo = new Lib\ObjectDesign\DecoratorPattenDemo();
+$demo = new Lib\ObjectDesign\FlyweightPatternDemo();
 $demo->test();
 
 
