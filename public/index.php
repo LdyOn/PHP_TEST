@@ -89,8 +89,8 @@ class Solution {
     }
 }
 
-// $s = Sington::getInstance();
-// $s->uName();
+$demo = new Lib\ObjectDesign\DecoratorPattenDemo();
+$demo->test();
 
 
 
