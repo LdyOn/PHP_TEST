@@ -1,6 +1,7 @@
 <?php 
 //********************加载类库***********************
 require_once '../common/functions.php';
+require_once '../lib/autoloader.php';
 //***************************************************
 
 $arr = [1,[3,'hello',2343,3,3,5,31,'yyy'=>["hello","world",36]],3];
