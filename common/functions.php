@@ -1,7 +1,7 @@
 <?php
 //在浏览器打印用户友好的变量信息
-function  dd(...$value){
-var_dump();die;	
+function  dd(...$value)
+{
 	foreach ($value as $v) {
 		$type = gettype($v);
 		switch ($type) {
@@ -20,7 +20,6 @@ var_dump();die;
 		}
 	}
 	
-
 	die;
 };
 

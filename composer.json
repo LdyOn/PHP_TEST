@@ -2,5 +2,8 @@
     "require": {
         "phpoffice/phpspreadsheet": "^1.5",
         "intervention/image": "^2.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "8"
     }
 }

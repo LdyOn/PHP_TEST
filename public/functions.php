@@ -6,11 +6,11 @@ function  sayHello()
 }
 
 function  generatePassword(){
-	$str =  '1234567890qwertyupasdfghjkzxcvbnmQWERTYUPASDFGHJKLZXCVBNM';
-	//echo strlen($str);
+	$str =  '1234567890qwertyupasdfghjkzxcvbnm';
+	// echo substr($str, 32, 1);die;
 	$pwd = '';
 	for ($i=0; $i <8 ; $i++) { 
-		$pwd .= substr($str, rand(0,56), 1);
+		$pwd .= substr($str, rand(0,32), 1);
 	}
 	return  $pwd;
 }
@@ -27,21 +27,5 @@ function removeComments($str)
 	return $str; 
 }
 
-function  dd($value){
-	if(is_array($value)){
-		$count = count($value);
-		echo "<p>Array[{$count}]:</p>";
-		foreach ($value as $k => $v) {
-			if(is_array($v)){
-				$count = count($v);
-				echo "\"{$k}\"=><p>Array[{$count}]:</p>";
-				dd($v);
-			}
-			echo "<p>\"{$k}\"=>{$v}</p>";
-		}
-	}
 
-	var_dump($value);
-	exit();
-}
 
