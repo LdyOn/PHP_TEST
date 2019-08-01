@@ -14,4 +14,11 @@ trait CommonTrait
 		}
 		return $result;
 	}
+
+
+
 }
+
+
+
+
