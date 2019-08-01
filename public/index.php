@@ -5,14 +5,12 @@ require_once '../lib/autoloader.php';
 require_once '../vendor/autoload.php';
 //***************************************************
 
+// $t = new \Lib\Test;
 
-$img = \Intervention\Image\Image::make('./images/ff.jpg')->resize(200, null, function ($constraint) {
-    $constraint->aspectRatio();
-    $constraint->upsize();
-})->insert('./images/ff.jpg', '研学一卡通', 15, 10);
-// $img_name = 'ykt'.$image->hashName();
-// $path = public_path('images/answer/').$img_name;
-$img->save('./images/test.jpg');
+// dd($t->publics());
+preg_match('/^\$\d+(,\d{3})* (\.\d{1,2})?(美元)?$/', '', $matchs);
+dd($matchs);
+
 
 
 
