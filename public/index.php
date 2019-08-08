@@ -5,7 +5,8 @@ require_once '../lib/autoloader.php';
 require_once '../vendor/autoload.php';
 //***************************************************
 
-
+$a = '0';
+var_dump($a==null);
 
 interface TranslatorInterface
 {

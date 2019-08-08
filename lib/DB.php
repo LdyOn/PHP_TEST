@@ -1,5 +1,5 @@
 <?php
-namespace lib;
+namespace Lib;
 
 require  'DbInterface.php';
 /**

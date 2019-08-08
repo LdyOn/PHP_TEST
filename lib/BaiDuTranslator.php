@@ -9,7 +9,7 @@ interface TranslatorInterface
 }
 
 /**
- * 
+ * 调用百度翻译接口
  */
 class BaiDuTranslator implements TranslatorInterface
 {
@@ -69,7 +69,9 @@ class BaiDuTranslator implements TranslatorInterface
             'salt'=>$salt,
             'sign' => $sign,
         ];
+
         $query_params = $this->queryParams($data);
+
         try{
             $out_put = $this->get($this->url.'?'.$query_params);
 

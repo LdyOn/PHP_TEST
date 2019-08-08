@@ -1,4 +1,5 @@
 <?php
+namespace Lib;
 
 function load($class_name)
 {
