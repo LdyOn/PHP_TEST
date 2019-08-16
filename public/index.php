@@ -4,104 +4,45 @@ require_once '../common/functions.php';
 require_once '../lib/autoloader.php';
 require_once '../vendor/autoload.php';
 //***************************************************
+// echo sys_get_temp_dir();die;
+$zip = new ZipArchive;
+$zip->open('扫码付.zip',ZIPARCHIVE::CREATE);
+$zip->addFile('./images/aa.jpg','helo.jpg');
+$zip->addFile('./images/bb.jpg','wo.jpg');
+$zip->setCompressionIndex(0, ZipArchive::CM_DEFAULT);
+$zip->setCompressionIndex(1, ZipArchive::CM_DEFAULT);
+$zip->close();
 
-$a = '0';
-var_dump($a==null);
+$fp = fopen('扫码付.zip', 'rb');
+$file_size = filesize('扫码付.zip');
 
-interface TranslatorInterface
-{
-    public function translateOne(string $word): string;
-
-    public function translateMany(array $words): array;
-}
-
-/**
- * 
- */
-class BaiDuTranslator implements TranslatorInterface
-{
-    protected $app_id;
-    public $from;
-    public $to;
-    protected $app_key;
-
-    private $url = 'http://api.fanyi.baidu.com/api/trans/vip/translate';
-    
-    function __construct($config)
-    {
-        $this->app_id = $config['app_id'];
-        $this->from = isset($config['from'])?$config['from']:'auto';
-        $this->to = isset($config['from'])?$config['to']:'zh';
-        $this->app_key = $config['app_key'];
-    }
-
-    protected function genSalt(){
-        return rand(1000,9999).rand(1000,9999);
-    }
-
-    public function translateOne(string $word): string
-    {
-        $salt = $this->genSalt();
-        $sign = $this->genSign($word,$salt);
-        $data = [
-            'q'=>urlencode($word),
-            'from'=>$this->from,
-            'to'=>$this->to,
-            'app_id'=>$this->app_id,
-            'salt'=>$salt,
-            'sign' => $sign,
-        ];
-        $query_params = $this->queryParams($data);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_URL, $this->url.'?'.$query_params);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST,FALSE);
-
-        $out_put = curl_exec($ch);
-        curl_close($ch);
-
-        $result =  json_decode($out_put,true);
-
-        return $result['trans_result'];
+$file_name = '扫码付.zip';
+//返回的文件
+header("Content-type:application/octet-stream");
+//按照字节返回
+header("Accept-Ranges:bytes");
+//返回这个文件大小
+header("Accept-Length:$file_size");
+//对应客户端弹出的对话框，对应的文件名
+header("Content-Disposition:attachment;filename=".$file_name);
 
 
-    }
+$buffer = 1024;
+$file_count = 0;
 
-    public function translateMany(array $words): array
-    {
-        //太累了不寫了
-    }
-
-    public function  setFrom($from){
-        $this->from = $from;
-    }
-
-    public function  setTo($to){
-        $this->to = $to;
-    }
-
-    protected function queryParams($data){
-        $str = '';
-        foreach ($data as $key => $value) {
-            $str .= $key.'='.$value.'&';
-        }
-        return substr($str, 0, -1);
-    }
-
-
-    protected function genSign($query,$salt){
-
-        return strtolower(md5($this->app_id.$query.$salt.$this->app_key));
-    }
-
-
-
-
+//用于判断数据读取
+while(!feof($fp) && $file_size-$file_count>0){
+    $file_count+=$buffer;
+    $file_data = fread($fp,$buffer);
+    //把部分数据回送给浏览器
+    //echo $file_count;//输出文件的时候不能有其他的echo 否则实际下载的写入的图片大小会和实际图片大小有出入
+    echo $file_data;
 
 }
+fclose($fp);
+unlink('扫码付.zip');
+
+
 
 
 

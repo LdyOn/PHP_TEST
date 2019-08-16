@@ -7,8 +7,6 @@ function load($class_name)
 	if($part[0]=='Lib'){
 		$file = str_replace('Lib\\', '', $class_name);
 		$file = __DIR__.'/'.str_replace('\\', '/', $file).'.php';
-		//echo __DIR__;die;
-		//echo $file;die;
 		if(file_exists($file)){
 			include $file;
 		}
@@ -16,4 +14,4 @@ function load($class_name)
 
 }
 
-spl_autoload_register('load', true, true);
+spl_autoload_register('Lib\load', true, true);
