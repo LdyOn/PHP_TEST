@@ -17,6 +17,11 @@ class Test
 	{
 		
 	}
+
+	public function sayHello()
+	{
+		return 'hello';
+	}
 }
 
 

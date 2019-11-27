@@ -6,39 +6,47 @@ use ZipArchive;
 class Zip extends ZipArchive
 {
 
-	/*
+	/**
 	*压缩文件
 	*
-	*@param string $file_path
-	*@param string $save_path
-	*@param string $file_name
+	*@param string $filePath
+	*@param string $fileName
 	*
 	*/
-	public function zipFile(string $file_path, string $save_path, string $file_name='')
+	public function zipFile(string $filePath)
 	{
 		
 	}
 
-	/*
+	/**
 	*压缩目录
 	*
-	*@param string $path
-	*@param string $file_name
+	*@param string $dirPath
 	*
 	*/
-	public function zipFolder(string $path, string $save_path, string $file_name='')
+	public function zipFolder(string $dirPath)
 	{
 		
 	}
 
-	/*
+	/**
 	*压缩并下载
 	*
-	*@param string $path
-	*@param string $file_name
+	*@param string $filePath
 	*
 	*/
-	public function zipAndDownload(string $path, string $file_name='')
+	public function zipAndDownload($path)
+	{
+		
+	}
+
+	/**
+	*保存文件
+	*
+	*@param string $savePath
+	*
+	*/
+	public function save($savePath)
 	{
 		
 	}
