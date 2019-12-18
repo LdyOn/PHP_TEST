@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Support\MessageQueue;
 /**
  *消费者
  *
@@ -7,34 +7,21 @@
  */
 class MessageConsumer 
 {
-	//Redis实例
-	private $redis = null;
-	//队列名称
-	protected  $queueName;
-	//设置消息处理器
-	protected $handler;
+	use QueueTrait;
 
+	protected $handler;
 	/**
 	*
 	*@param string $queueName
 	*@param object|\Closure $handler
+	*@param array
 	*/
-	function __construct($queueName, $handler)
+	function __construct($queueName, $handler, $config)
 	{
 		$this->queueName = $queueName;
-		$this->handler  = $handler;
+		$this->handler = $handler;
+		$this->connect($config);
 	}
-
-
-	/**
-	*设置队列名称
-	*@param string $queueName
-	*/
-	public function setQueueName($queueName)
-	{
-		$this->queueName = $queueName;
-	}
-
 
 	/**
 	*设置消息处理器
@@ -45,51 +32,29 @@ class MessageConsumer
 		$this->handler = $handler;
 	}
 
-	/**
-	*连接redis服务器
-	*
-	*@param array $config redis连接配置
-	*/
-	public function connect($config)
-	{
-		$this->redis = new \Redis;
-
-		$this->redis->connect($config['host'], $config['port']);
-
-		if(isset($config['password']) && !empty($config['password'])){
-			$this->redis->auth($config['password']);
-		}
-
-		if(isset($config['db']) && !empty($config['db'])){
-			$this->redis->select($config['db']);
-		}
-
-	}
 
 	/*处理消息*/
 	public function consume()
 	{
-		//从队列中取出最早的一条消息
-		$message = $this->redis->rPop($this->queueName);
-
-		if($message===false)
-			return;
-		//转换回数组格式
-		$message = json_decode($message, true);
-
-		//如果消息已经过期，则丢弃不做处理
-		if($message['expireAt'] != null && time()>$message['expireAt'])
-			return ;
-
-		if($this->handler  instanceof \Closure){
-			call_user_func($this->handler, $message['message']);
-		}elseif(is_object($this->handler)){
-			$this->handler->handle($message['message']);
-		}else{
-			throw new Exception("消息处理器类型错误，消息处理器是一个对象或闭包", 1);
-			
+		$scoreNow = $this->getTimeSort();
+		//从队列中取出到了执行时间的数据
+		$ret = $this->redis->multi()->zRangeByScore($this->queueName, 0, $scoreNow)->zRemRangeByScore($this->queueName, 0, $scoreNow)->exec();
+		$messages = $ret[0];
+		
+		foreach ($messages as $value) {
+			$value = json_decode($value, true);
+			if($this->handler instanceof \Closure){
+				call_user_func_array($this->handler, $value);
+			}elseif(is_object($this->handler)){
+				$this->handler->handle($value);
+			}else{
+				throw new Exception("处理器必须是对象或闭包", 1);
+				
+			}
 		}
 	}
+
+
 
 
 	/*运行消息消费者*/
@@ -98,8 +63,8 @@ class MessageConsumer
 		// 让脚本一直运行
 		while (true) {
 			$this->consume();
-			//每隔五秒读取消息进行处理
-			sleep(5);
+			//暂停一秒
+			sleep(1);
 		}
 	}
 
