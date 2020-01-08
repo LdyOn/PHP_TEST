@@ -1,5 +1,5 @@
 <?php
-namespace App\Support\MessageQueue;
+namespace Lib\MessageQueue;
 /**
  *消费者
  *
